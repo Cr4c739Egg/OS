@@ -1,5 +1,7 @@
 dod mwr librarys 
 cool program
 Oreilly
-
-
+get-item wsman:\localhpost\client\trustedhosts
+invoke executes commands on a remote device
+stacknumber - 14
+public - 10.50.30.185
