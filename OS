@@ -7,6 +7,69 @@ stacknumber - 14
 public - 10.50.30.185
 http://10.50.21.56:8000/
 xfreerdp /u:andy.dwyer /v:10.50.30.185 /dynamic-resolution +glyph-cache +clipboard
+
+file-server - 10.14.0.3 BurtMacklinFBI
 diff
 get-ciminstance win32_
+
+test-path to see if sommething is there
+
+Day 2
+regedit.exe
+GUI
+c:\windows\regedit.exe
+
+or
+reg.exe
+CMD
+reg add, reg query, reg delete
+
+the keys are loaded as psdrives
+
+hklm and hku are only available when remoting, but the other keys can be accessed in those because they are symoblicallly linked in the avail keys
+
+/? for help in cmd prompt
+
+powershell for reg
+get-item - used to get an item, like run. reads key values not subkeys
+set-item
+new-item
+get-childitem - doesnt list files, go one folder up to see files. reads the directory of a key
+
+important keys
+url history
+usb hist
+recent files
+profiles 
+page file
+search terms for cortana
+persistence
+HKLM\software\microsoft\windows\currrentversion\run
+
+
+ADS
+a png is a picture, but it also has metadata in other streams. files can be attached to other files in other streams and ran when opening it. WinDefender 
+does check these however
+$data has the stream, saving a file to a thumbdrive removes the other streams
+ads - set-content .\file.txt -value ""
+read it - get-item -stream <name> or cat <file> -stream <name>i
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
