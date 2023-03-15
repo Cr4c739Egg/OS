@@ -5,3 +5,8 @@ get-item wsman:\localhpost\client\trustedhosts
 invoke executes commands on a remote device
 stacknumber - 14
 public - 10.50.30.185
+http://10.50.21.56:8000/
+xfreerdp /u:andy.dwyer /v:10.50.30.185 /dynamic-resolution +glyph-cache +clipboard
+diff
+get-ciminstance win32_
+
