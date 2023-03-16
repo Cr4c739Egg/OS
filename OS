@@ -38,12 +38,15 @@ get-childitem - doesnt list files, go one folder up to see files. reads the dire
 
 important keys
 url history
-usb hist
+usb hist HKEY_LOCAL_MACHINE\SYSTEM\CURRENTCONTROLSET\ENUM\USBSTOR:
 recent files
-profiles 
+profiles 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList'
 page file
 search terms for cortana
+networklist HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles
+
 persistence
+
 HKLM\software\microsoft\windows\currrentversion\run
 
 
