@@ -51,15 +51,46 @@ HKLM\software\microsoft\windows\currrentversion\run
 
 
 ADS
-a png is a picture, but it also has metadata in other streams. files can be attached to other files in other streams and ran when opening it. WinDefender 
-does check these however
+a png is a picture, but it also has metadata in other streams. files can be attached to other files in 
+other streams and ran when opening it. 
+WinDefender does check ads's however
 $data has the stream, saving a file to a thumbdrive removes the other streams
 ads - set-content .\file.txt -value ""
 read it - get-item -stream <name> or cat <file> -stream <name>i
 
+DAY 3 LINUX
 
+get into the non gui boxs, through admin or 
+ssh -j andy.dwyer@10.50.30.185 garviel@10.14.0.6
+.6 pass is luna
 
+net cmds
+iconfig
+ip addr
+ip neigh
+arp
+netstat -anpo
+man -k edit
+sed --help
+sudo -l / shows cmds you can run with sudo
+sed 's/*replacee*/*replacer*/g'
 
+/ is root
+usr cmds in /bin
+/sbin is sys progs and executables
+/home is user home dirs
+/var has var data, logs, temp files
+/dev has special devices and device files
+/lib has kernel mods and shared libraries
+/mount is mount point for storage
+/proc is virual file system
+/opt is software packages
+/media is for removable media
+whoami, pwd
+octal is r - 4 w - 2 e - 1 for perms
+if you cant open a dir u dont have execute perms for the dir, write allows to add or delete files in it, and
+read allows u to list the dir
+sticky bit allows the perms to be for everybody. Only the user with the sticky bit can do something
 
 
 
