@@ -8,6 +8,13 @@ public - 10.50.30.185
 http://10.50.21.56:8000/
 xfreerdp /u:andy.dwyer /v:10.50.30.185 /dynamic-resolution +glyph-cache +clipboard
 
+windows_opstation_CfeM	win_ops	
+192.168.65.10, 10.50.24.111
+	
+linux_opstation_CfeM	nix_ops	
+192.168.65.20, 10.50.33.210
+
+
 file-server - 10.14.0.3 BurtMacklinFBI
 diff
 get-ciminstance win32_
