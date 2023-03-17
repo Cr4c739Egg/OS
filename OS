@@ -94,9 +94,15 @@ sticky bit allows the perms to be for everybody. Only the user with the sticky b
 
 
 
+windows boot process
+how to check if bios or uefi
 
+Type C:\Windows\Panther\Setupact.log | findstr /i "Detected boot environment"
+Get-Content C:\Windows\Panther\Setupact.log | Select-String "Detected boot environment"
+or
+bcdedit | findstr /i winload
 
-
+winload.exe = BIOS, winload.efi = UEF
 
 
 
