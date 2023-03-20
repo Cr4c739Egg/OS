@@ -14,6 +14,7 @@ windows_opstation_CfeM	win_ops
 linux_opstation_CfeM	nix_ops	
 192.168.65.20, 10.50.33.210
 
+http://10.50.21.56:8000 #ctfds
 
 file-server - 10.14.0.3 BurtMacklinFBI
 diff
@@ -146,6 +147,34 @@ terra systemd
 minas- SysV
 
 
+cat /etc/inittab #sysv default target
+
+ls -l /etc/rc3.d/ #number is runlevel
+
+/etc/init.d/cgmanager
+
+ls -lisa /lib/sysemd/system/default.target #systemd target
+
+\systemctl cat default.target #systemd
+/etc/sytemd/system #can grep for wants, like grep graphical
+/etc/init.d/rc #sysV wants
+
+ls -l /lib/systemd/system #wants, targets
+ls -l /run/systemd/generator
+
+cat /etc/systemd/system/display.manager
+
+systemctl show -p Wants graphical.target #EASY way, can do requires intead of wants
+systemctl list-dependencies graphical.target #white inactive green active red error. first ones before multi-user is 
+wants
+systemctl cat graphical.target #systemd
+
+
+postboot
+
+cat /etc/environment #searchpath for cmds/vars. executables are not in the path
+/etc/profile #executes when a user loads an interactive shell, can be used for persistence
+same with /etc/bash/bashrc
 
 
 
