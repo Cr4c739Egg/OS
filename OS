@@ -112,7 +112,38 @@ bcdedit | findstr /i winload
 winload.exe = BIOS, winload.efi = UEF
 
 
+kernel starts init that has pid of 1
 
+
+mbr 512 bytes 
+
+
+BIG MIKE GOT KILLED IN RUSSIA (SYSV)
+
+BIOS -Basic Input Output System
+MBR -Master Boot Record
+GRUB -Grand Unified Bootloader
+Kernel
+Init (SysV or SystemD)
+Runlevels
+
+
+sudo xxd -l 512 -g /dev/vda (hex dump of mbr)
+sudo dd if=/dev/vda of=MBRCopy bs=1 count=512 (byte copy, make sure you make copys to not break it)
+
+/etc/grub.d/ to see kernel ver
+
+
+
+
+sudo strace cat /etc/passwd #system calls
+
+sudo lsmod
+
+
+garviel systemd
+
+terra SysV
 
 
 
