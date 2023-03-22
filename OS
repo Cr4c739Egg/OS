@@ -335,6 +335,37 @@ etc
 
 ./procmon.exe
 
+LINUX PROCS (cronjob, zombie and orphan procs, services)
+
+
+procs after startup
+[kthreadd] (PID = 2) #all kernel procs are forked from here. Typicaly handle hardware, managde by kernel. 
+they also are usually in [] and have PPID of 2
+/sbin/init (PID = 1) #all user procs are forked from here or direct ancestor
+pri is priority
+ni procs nice number
+
+euid defines the access rights for a process.
+A second user ID, the real user ID (ruid), indicates who initiated a process.
+Users can only modify / interact with files /process that they own or have been shared with them.
+A user is an entity that can run processes and own files.
+
+system calls are interactions between procs and kernel
+fork() makes a proc by duping it, exec() makes the kernel replace the process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
