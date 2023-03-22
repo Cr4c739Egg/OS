@@ -181,4 +181,161 @@ same with /etc/bash/bashrc
 
 
 
+Day 4 important
+
+process validity - Making sure a process is known to be good
+
+abnormal procs - misspeled, using resources for no reason, weird behavior, sus pids
+Malware will typically try to blend in, and be unnoticeable
+
+DLLs - code that can be utilized between different apps and services
+
+.ocx - activex controls
+.cpl - 
+.drv - drivers
+
+get-process | sort -property id | more
+
+0 kernel space 
+2 user space
+
+get-process | select name, id, decription | sort -property is | more
+
+process checker - echotrail.io
+
+get-process smss, csrss, lsass | Sort -Property Id
+
+
+View modules/DLLs used by defined process and their file locations.
+
+Get-Process chrome | foreach {$a} {$_.modules} | more
+Get-Process -Name "*chrome*" | Select-Object -ExpandProperty Modules | more
+
+View only modules/DLLs used by Chrome with "chrome" in the name and their file locations.
+
+Get-Process chrome | foreach {$a} {$_.modules} | Where-Object ModuleName -like '*chrome*' | more
+Get-Process -Name "*chrome*" | Select-Object -ExpandProperty Modules | Where-Object ModuleName -like '*chrome*' | more
+Pipe in a ft -wrap to see full file name/path.
+
+View the processes with PID and PPID sorted by PID
+
+Get-CimInstance Win32_Process | select name,ProcessId,ParentProcessId | sort processid
+
+CMD 
+
+tasklist /v - /svc - /m | more
+
+Display modules/dlls associated to a specific process.
+
+tasklist /m /fi "IMAGENAME eq chrome.exe" | more
+
+Formating options
+
+tasklist /fo:{table|list|csv}`
+tasklist /fo:table | more
+
+View only system services and display Name, PID, and the path they are initiated from.
+
+Get-Ciminstance Win32_service | Select Name, Processid, Pathname | more
+Pipe in a ft -wrap to see full pathname.
+
+
+sc query
+sc queryex type=service
+
+View extended information for all inactive services.
+sc queryex type=service state=inactive
+sc /?                           # Basic service enumeration
+sc qc                           # Configuration information for a service
+sc queryex eventlog             # Information for the eventlog service including pid
+sc qdescription eventlog        # Query eventlog service description
+sc qc eventlog                  # Show the binary command that loads the service
+sc showsid eventlog             # Displays the service SID and status
+sc enmudepend                   # Lists the services that cannot run unless the specified service is running
+
+View all currently running services.
+net start
+
+services.msc
+View Services in the GUI
+
+Pull services up in the Windows search bar and show them around if you’d like.
+PsService
+Sysinternal Tool
+
+can schedule tasks as persistence
+
+View all properties of the first scheduled task.
+
+Get-ScheduledTask | Select * | select -First 1
+
+View Scheduled Tasks In Command Prompt
+schtasks /query /tn "<name>" /v /fo list
+
+task scheduler - gui program
+
+sysinternal tool - autoruns
+
+netstat -ano (p or b[win])
+
+system procs - system32
+user procs programfiles
+
+
+What are some Registry keys that can be used for autoruns?
+
+Registry Keys Locations, Locations connected with Services.
+
+HKLM\Software\Microsoft\Windows\CurrentVerstion\Run - Local Machine
+
+HKLM\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+HKLM\System\CurrentControlSet\Services
+
+Remember that the Users have individual Hives with autoruns as well as the Current User.
+
+HKCU\Software\Microsoft\Windows\CurrentVerstion\Run - Current User
+
+HKCU\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+HKU\<sid>\Software\Microsoft\Windows\CurrentVerstion\Run - Specific User
+
+HKU\<sid>\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+The order in which services are loaded can be adjusted.
+
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder
+
+HKEY_LOCAL_MACHINE\CurrentControlSet\Control\GroupOrderList
+
+
+UAC
+
+
+SYSINTERNALS - collection of a bunch of different utilities
+net use * http://live.sysinternals.com #gets the tools
+
+or
+
+PS C:\Users\andy.dwyer\Desktop> $wc = new-object System.Net.WebClient 
+
+PS C:\Users\andy.dwyer\Desktop> $wc.DownloadFile("https://download.sysinternals.com/files/SysinternalsSuite.zip",
+"$pwd\SysinternalsSuite.zip") 
+
+PS C:\Users\andy.dwyer\Desktop> Expand-Archive SysinternalsSuite.zip 
+
+Location may be different on your box The webclient provides common methods for sending and receiving data to/from a URI (Uniform Resource Identifier)
+Download the .zip file from the website
+Unzip the file, creates a folder on the desktop
+
+tcpview
+pslogon
+autoruns
+etc
+
+./procmon.exe
+
+
+
+
 
