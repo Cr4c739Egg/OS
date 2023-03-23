@@ -18,7 +18,9 @@ http://10.50.21.56:8000 #ctfds
 
 ssh -J andy.dwyer@10.50.30.185 garviel@10.14.0.6 #jump from admin
 
-file-server - 10.14.0.3 BurtMacklinFBI
+file-server  - 10.14.0.3 BurtMacklinFBI
+workstation2 - 10.14.0.4 BurtmacklinFBI
+
 diff
 get-ciminstance win32_
 
@@ -397,5 +399,107 @@ BAM Provides the following:
 full path of an executable
 
 last execution date/time.
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings #On 1809 and Newer
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings #On 1803 and below
+Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\bam\state\UserSettings\* 
+
+wmic useraccount  get caption,sid | more #1
+Get-Itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings\S-1-5-21-1584283910-3275287195-1754958050-1005' #2
+
+1 Get the SID of every local user on the machine
+2 Insert the SID of andy.dwyer from above. Output shows the BAM artifact from andy.dwyer
+
+Recycle Bin
+
+When a user deletes a file in Windows it goes into the Recycle bin. This data is recoverable during an investigation using built in tools.
+Content in the recycle bin is identified by:
+
+SID - determines which user deleted it
+Timestamp - When it was deleted
+$RXXXXXX - content of deleted files (important)
+$IXXXXXX - original PATH and name (Important)
+
+Location: C:\$Recycle.bin (Hidden System Folder)
+
+Get-Childitem 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select FullName
+Output shows all of the contents of the Recycle Bin. -Recurse will look at all user’s/SID’s contents
+wmic useraccount where 'sid="S-1-5-21-1584283910-3275287195-1754958050-1005"' get name
+Get-Content 'C:\$Recycle.Bin\S-1-5-21-1584283910-3275287195-1754958050-1005\$R8QZ1U8.txt'
+Reads the contents of a particular file within the Recycle BIN
+
+Prefetch
+Prefetch files are created by the windows operating system when an application is run from a specific location for the first time.
+Location: C:\Windows\Prefetch
+
+Recent Files
+Registry Key that will track the last files and folders opened and is used to populate data in “Recent” menus of the Start menu.
+
+Location
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
+
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt
+Get-Item 'Registry::\HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.*
+
+Browser Artifacts
+Stores details for each user account. Records number of times a site is visited (frequency). 
+History will record the access to the file on the website that was accessed via a link. 
+Many sites in history will list the files that were opened from remote sites and downloaded to the local system
+
+Location: %USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\history
+pulled from: C:\Users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\
+# Frequency links that were "clicked" 
+.\strings.exe 'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\History' -accepteula 
+# Most Visited
+.\strings.exe 'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\Top Sites'
+# User Names where user credentials were entered
+.\strings.exe  'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\Login Data' 
+
+$History = (Get-Content 'C:\users\student\AppData\Local\Google\Chrome\User Data\Default\History') -replace "[^a-zA-Z0-9\.\:\/]","" 
+
+$History| Select-String -Pattern "(https|http):\/\/[a-zA-Z_0-9]+\.\w+[\.]?\w+" -AllMatches|foreach {$_.Matches.Groups[0].Value}| ft
+
+Event Logs
+Logs are records of events that happen in your computer, such as when a user logs on to the computer or when a program encounters an error. 
+Users might find the details in event logs helpful when troubleshooting problems with Windows and other programs. 
+They also help you track what happened.
+Locations
+*.evtx files accessed by:
+
+Windows Event View Application
+
+Get-Eventlog or Get-WinEvent in Powershell
+
+wevtutil in Command Prompt
+
+auditpol /get /category:"Object Access"
+auditpol /set /subcategory:"File System"
+auditpol /set /subcategory:"File System" /success:disable 
+
+Shows the status of the subcategories in the Object Access category
+Sets the File System subcategory to audit "Success"
+Sets the File System subcategory back to "No Auditing"
+
+auditpol /get /category:*
+Shows a list of all the Audit Policy categories and cooresponding subcategories and their current settings. 
+Run command and show the different Categories/Subcategories.
+
+Get-EventLog -LogName System -Newest 10
+Get-EventLog -	Shows the newest/last 10 entries in the system log. 
+Point out what the three dots (…​) mean and how to print the rest of the entry. (ex. | format-table -wrap)
+Add the format-table -wrap option to print the truncated part of the entry.LogName System -Newest 3 |  
+
+Get-Eventlog -LogName Security | ft -wrap #lots of info
+Get-Eventlog -LogName Security | ft -wrap | findstr /i StR1nG #finds a specific string
+
+Get-EventLog is limited to the default Windows Logs of Security, Application, System,and Windows Powershell (Windows 8.1 and up)
+Get-Winevent will cover all the default eventlogs and all of the remaining custom application logs
+
+
+
+
+
+
+
 
 
