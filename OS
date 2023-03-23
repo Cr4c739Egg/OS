@@ -375,14 +375,27 @@ sudo lsof -c cron #file descriptors
 
 
 
+WINDOWS LOGGING/AUDITING (artifacts, logs etc)
 
+Get-LocalUser | select Name,SID #get the sid to find artifacts. for local users
+wmic UserAccount get name,sid #local and domain users
 
+UserAssist - gui based programs ran by user
+They are located in HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{GUID}\Count\ * they are encoded in ROT13
 
+The GUID represents a particular file extension.
+CEBFF5CD-ACE2-4F4F-9178-9926F41749EA A list of applications, files, links, and other objects that have been accessed
 
+F4E57C4B-2036-45F0-A9AB-443BCFE33D9F Lists the Shortcut Links used to start programs
 
+Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count" 
 
+Windows Background Activity Moderator (BAM) BAM is a Windows service that Controls activity of background applications.
+This service exists in Windows 10 only after Fall Creators update – version 1709.
+BAM Provides the following:
 
+full path of an executable
 
-
+last execution date/time.
 
 
