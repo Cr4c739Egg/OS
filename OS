@@ -539,4 +539,7 @@ LOGGING DAEMON
 User space daemon - Reads messages written to /dev/log and 
 formats and stores them based on /etc/rsyslog.conf rules.
 
+.\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" imageinfo #find the profile to use
+.\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 psscan #proc list. Simlar to pslist ,and pstree, but better 
 
+.\strings.exe -accespteula c:\users\andy.dwyer\desktop\memory\analysis
