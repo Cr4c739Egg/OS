@@ -267,7 +267,6 @@ Sysinternal Tool
 
 can schedule tasks as persistence
 
-View all properties of the first scheduled task.
 
 Get-ScheduledTask | Select * | select -First 1
 
