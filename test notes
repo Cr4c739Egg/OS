@@ -1,0 +1,124 @@
+
+
+
+PROC STUFF
+htop #good for seeing running procs
+ps -elf
+#high pids, weird numbers, misspelled things etc
+WIN
+tasklist
+autoruns
+
+
+
+
+net cmds
+iconfig
+ip addr
+netstat -anop or -anob or -ltup (linux)
+get-nettcpconnection
+ip neigh
+arp
+netstat -anpo
+man -k edit
+sed --help
+sudo -l / shows cmds you can run with sudo
+sed 's/*replacee*/*replacer*/g'
+
+
+LINUX STUFF
+/ is root
+usr cmds in /bin
+/sbin is sys progs and executables
+/home is user home dirs
+/var has var data, logs, temp files
+/dev has special devices and device files
+/lib has kernel mods and shared libraries
+/mount is mount point for storage
+/proc is virual file system
+/opt is software packages
+/media is for removable media
+whoami, pwd
+octal is r - 4 w - 2 e - 1 for perms
+if you cant open a dir u dont have execute perms for the dir, write allows to add or delete files in it, and
+read allows u to list the dir
+sticky bit allows the perms to be for everybody. Only the user with the sticky bit can do something
+
+
+ARTIFACTS AND REG KEYS
+UserAssist - gui based programs ran by user
+They are located in HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{GUID}\Count\ * they are encoded in ROT13
+
+The GUID represents a particular file extension.
+CEBFF5CD-ACE2-4F4F-9178-9926F41749EA A list of applications, files, links, and other objects that have been accessed
+
+F4E57C4B-2036-45F0-A9AB-443BCFE33D9F Lists the Shortcut Links used to start programs
+Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count" 
+
+usb hist HKEY_LOCAL_MACHINE\SYSTEM\CURRENTCONTROLSET\ENUM\USBSTOR:
+
+profiles 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList'
+
+networklist HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles
+
+auto run key HKLM\software\microsoft\windows\currrentversion\run
+
+HKLM\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+HKLM\System\CurrentControlSet\Services
+
+Remember that the Users have individual Hives with autoruns as well as the Current User.
+
+HKCU\Software\Microsoft\Windows\CurrentVerstion\Run - Current User
+
+HKCU\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+HKU\<sid>\Software\Microsoft\Windows\CurrentVerstion\Run - Specific User
+
+HKU\<sid>\Software\Microsoft\Windows\CurrentVerstion\RunOnce
+
+The order in which services are loaded can be adjusted.
+
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder
+
+HKEY_LOCAL_MACHINE\CurrentControlSet\Control\GroupOrderList
+
+make sure you got artifacts, reg keys, and persistence, cron directories, how to download sysinternals
+how to find or have all the pwsh profiles. 4 for pwsh, 2 more for pwsh ise. 
+
+SYSINTERNALS - collection of a bunch of different utilities
+net use * http://live.sysinternals.com #gets the tools
+
+or
+
+PS C:\Users\andy.dwyer\Desktop> $wc = new-object System.Net.WebClient 
+
+PS C:\Users\andy.dwyer\Desktop> $wc.DownloadFile("https://download.sysinternals.com/files/SysinternalsSuite.zip",
+"$pwd\SysinternalsSuite.zip") 
+
+PS C:\Users\andy.dwyer\Desktop> Expand-Archive SysinternalsSuite.zip 
+
+Location may be different on your box The webclient provides common methods for sending and receiving data to/from a URI (Uniform Resource Identifier)
+Download the .zip file from the website
+Unzip the file, creates a folder on the desktop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
